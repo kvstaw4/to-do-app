@@ -4,13 +4,17 @@ let sanitizeHTML = require('sanitize-html')
 
 let app = express()
 let db
+let port = process.env.port
+if(port == null || port == '') {
+    port = 3000
+}
 
 app.use(express.static('public'))
 
 let connectionString = 'mongodb+srv://R747ev56u65ub7:1234567o@cluster0.xphvk.mongodb.net/toDoApp?retryWrites=true&w=majority'
 mongodb.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, client) {
     db = client.db()
-    app.listen(3000)
+    app.listen(port)
 })
 
 app.use(express.json())
